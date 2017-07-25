@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Clock from './Clock';
 import './App.css';
+import { Form, FormControl, Button } from 'react-bootstrap';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      deadline: 'December 25, 2017'
+    };
+    this.changeDeadline = this.changeDeadline.bind(this);
+  }
+
+  changeDeadline() {
+    debugger;
+    this.setState({ deadline: this.newDeadline.value });
+    console.log(this.state);
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <div className="App-title">
+          Countdown to<br /> {this.state.deadline}
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Clock
+          deadline={this.state.deadline} />
+        <Form inline>
+          <FormControl type="text" placeholder="New date e.g.) October 20 2017"
+            inputRef={(ref) => { this.newDeadline = ref; }}
+            defaultValue="October 20 2017" />
+          <Button bsStyle="primary" onClick={this.changeDeadline}>submit</Button>
+        </Form>
       </div>
     );
   }
